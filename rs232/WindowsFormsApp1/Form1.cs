@@ -15,6 +15,7 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            FormClosed += Form1_FormClosed;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -41,11 +42,12 @@ namespace WindowsFormsApp1
             bool opened = service.ConfigurePort(portName, rate, charFormat, terminator, flowControl, transmissionType, timeout);
             if (!opened)
             {
+                richTextBox1.AppendText(Environment.NewLine);
                 richTextBox1.AppendText("Konfiguracja portu nie przebiegła pomyślnie.");
                 richTextBox1.AppendText("Proszę sprawdzić ustawienia lub uruchomić program ponownie.");
                 return;
             }
-
+            richTextBox1.AppendText(Environment.NewLine);
             richTextBox1.AppendText("Konfiguracja portu przebiegła pomyślnie.");
             richTextBox1.AppendText("Można rozpocząć komunikację.");
             sendButton.Enabled = true;
@@ -53,14 +55,19 @@ namespace WindowsFormsApp1
             DisableConfiguration();
             new Thread(() =>
             {
+                Thread.CurrentThread.IsBackground = true;
                 while (true)
                 {
                     string message = service.ReceiveMessage();
                     if (!string.IsNullOrEmpty(message))
                     {
-                        richTextBox1.AppendText(Environment.NewLine);
-                        string time = DateTime.Now.ToString("HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
-                        richTextBox1.AppendText(time + " Odebrano: " + message);
+                        //idk what is does but fixes thread exception
+                        Invoke((MethodInvoker)delegate ()
+                        {
+                            richTextBox1.AppendText(Environment.NewLine);
+                            string time = DateTime.Now.ToString("HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+                            richTextBox1.AppendText(time + " Odebrano: " + message);
+                        });
                     }
                 }
             }).Start();
@@ -92,6 +99,22 @@ namespace WindowsFormsApp1
             transmissionTypeComboBox.Enabled = false;
             portComboBox.Enabled = false;
             timeoutComboBox.Enabled = false;
+            stopButton.Enabled = true;
+            pingButton.Enabled = true;
+        }
+
+        private void EnableConfiguration()
+        {
+            rateComboBox.Enabled = true;
+            startButton.Enabled = true;
+            charComboBox.Enabled = true;
+            terminatorComboBox.Enabled = true;
+            flowControlComboBox.Enabled = true;
+            transmissionTypeComboBox.Enabled = true;
+            portComboBox.Enabled = true;
+            timeoutComboBox.Enabled = true;
+            stopButton.Enabled = false;
+            pingButton.Enabled = false;
         }
 
         private void sendButton_Click(object sender, EventArgs e)
@@ -104,5 +127,21 @@ namespace WindowsFormsApp1
             messageTextBox.Text = string.Empty;
         }
 
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            service.CloseConnection();
+        }
+
+        private void pingButton_Click(object sender, EventArgs e)
+        {
+            service.SendPing();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            service.CloseConnection();
+            EnableConfiguration();
+
+        }
     }
 }

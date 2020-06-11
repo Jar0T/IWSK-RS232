@@ -3,6 +3,8 @@ using System.Linq;
 using System.IO.Ports;
 using static RS232.Enums;
 using System.Diagnostics;
+using System;
+using System.Windows.Forms;
 
 namespace RS232
 {
@@ -10,7 +12,7 @@ namespace RS232
     {
         private readonly SerialPort _serialPort = new SerialPort();
         private Stopwatch sw = new Stopwatch();
-
+        public bool TransactionMode { get; set; } = false;
 
         public List<string> GetPortNames()
         {
@@ -46,6 +48,11 @@ namespace RS232
             }
         }
 
+        public void CloseConnection()
+        {
+            _serialPort.Close();
+        }
+
         public void SendMessage(string message)
         {
             if (_serialPort.IsOpen)
@@ -62,7 +69,6 @@ namespace RS232
                 {
                     string message = _serialPort.ReadLine();
 
-                    // check if ping
                     if (message.Equals("PING"))
                     {
                         SendMessage("PONG");
@@ -76,13 +82,22 @@ namespace RS232
 
                     return message;
                 }
-                catch {  }
+                catch (TimeoutException)
+                {
+                    if (TransactionMode)
+                    {
+                        MessageBox.Show("Timeout!");
+                        TransactionMode = false;
+                    }
+                }
+                catch { }
             }
             return null;
         }
 
         public void SendPing()
         {
+            TransactionMode = true;
             sw.Restart();
             SendMessage("PING");
         }

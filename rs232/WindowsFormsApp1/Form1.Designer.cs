@@ -43,13 +43,13 @@
             this.transmissionTypeComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.pingLabel = new System.Windows.Forms.Label();
+            this.pingButton = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.timeoutComboBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.stopButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -182,26 +182,20 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // pingButton
             // 
-            this.button2.Location = new System.Drawing.Point(145, 348);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Ping";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // pingLabel
-            // 
-            this.pingLabel.AutoSize = true;
-            this.pingLabel.Location = new System.Drawing.Point(73, 387);
-            this.pingLabel.Name = "pingLabel";
-            this.pingLabel.Size = new System.Drawing.Size(35, 13);
-            this.pingLabel.TabIndex = 16;
-            this.pingLabel.Text = "label8";
+            this.pingButton.Enabled = false;
+            this.pingButton.Location = new System.Drawing.Point(145, 348);
+            this.pingButton.Name = "pingButton";
+            this.pingButton.Size = new System.Drawing.Size(75, 23);
+            this.pingButton.TabIndex = 15;
+            this.pingButton.Text = "Ping";
+            this.pingButton.UseVisualStyleBackColor = true;
+            this.pingButton.Click += new System.EventHandler(this.pingButton_Click);
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Enabled = false;
             this.richTextBox1.Location = new System.Drawing.Point(270, 10);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(518, 390);
@@ -245,18 +239,29 @@
             this.label8.TabIndex = 20;
             this.label8.Text = "Timeout:";
             // 
+            // stopButton
+            // 
+            this.stopButton.Enabled = false;
+            this.stopButton.Location = new System.Drawing.Point(34, 391);
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(75, 23);
+            this.stopButton.TabIndex = 22;
+            this.stopButton.Text = "Stop";
+            this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.stopButton);
             this.Controls.Add(this.timeoutComboBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.pingLabel);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.pingButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.transmissionTypeComboBox);
             this.Controls.Add(this.label7);
@@ -297,13 +302,13 @@
         private System.Windows.Forms.ComboBox transmissionTypeComboBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label pingLabel;
+        private System.Windows.Forms.Button pingButton;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox messageTextBox;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.ComboBox timeoutComboBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button stopButton;
     }
 }
 

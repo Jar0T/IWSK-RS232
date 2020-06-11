@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO.Ports;
 
 namespace RS232
 {
@@ -46,9 +41,5 @@ namespace RS232
         }
 
         public enum FlowControl { BRAK, XON_XOFF, RTS_CTS, DTR_DSR };
-
-        public enum Signal { OB, DA, DTR, DSR, RTS, CTS, CD, RI };
-
-        public enum SignalState { Unknown = 0, Inactive = 1, Active = 2 };
     }
 }

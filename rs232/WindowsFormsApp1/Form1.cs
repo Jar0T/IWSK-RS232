@@ -24,7 +24,6 @@ namespace WindowsFormsApp1
             charComboBox.DataSource = new List<string> { "8E1", "8O1", "8N2", "7E1", "7O1", "7N2" };
             terminatorComboBox.DataSource = Enum.GetNames(typeof(Terminator));
             flowControlComboBox.DataSource = Enum.GetNames(typeof(FlowControl));
-            transmissionTypeComboBox.DataSource = Enum.GetNames(typeof(TransmissionType));
             portComboBox.DataSource = service.GetPortNames();
         }
 
@@ -34,10 +33,9 @@ namespace WindowsFormsApp1
             string charFormat = charComboBox.Text;
             string termStr = GetCurrentTerminatorAsString();
             FlowControl flowControl = (FlowControl)Enum.Parse(typeof(FlowControl), flowControlComboBox.Text);
-            TransmissionType transmissionType = (TransmissionType)Enum.Parse(typeof(TransmissionType), transmissionTypeComboBox.Text);
             string portName = portComboBox.Text;
 
-            bool opened = service.ConfigurePort(portName, rate, charFormat, termStr, flowControl, transmissionType);
+            bool opened = service.ConfigurePort(portName, rate, charFormat, termStr, flowControl);
             if (!opened)
             {
                 richTextBox1.AppendText("Konfiguracja portu nie przebiegła pomyślnie.");
@@ -109,7 +107,6 @@ namespace WindowsFormsApp1
             charComboBox.Enabled = false;
             terminatorComboBox.Enabled = false;
             flowControlComboBox.Enabled = false;
-            transmissionTypeComboBox.Enabled = false;
             portComboBox.Enabled = false;
             stopButton.Enabled = true;
             pingButton.Enabled = true;
@@ -122,7 +119,6 @@ namespace WindowsFormsApp1
             charComboBox.Enabled = true;
             terminatorComboBox.Enabled = true;
             flowControlComboBox.Enabled = true;
-            transmissionTypeComboBox.Enabled = true;
             portComboBox.Enabled = true;
             stopButton.Enabled = false;
             pingButton.Enabled = false;

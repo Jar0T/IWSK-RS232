@@ -10,15 +10,13 @@ namespace RS232
     {
         private SerialPort _serialPort;
         private Stopwatch sw = new Stopwatch();
-        public bool TransactionMode { get; set; } = false;
-
 
         public List<string> GetPortNames()
         {
             return SerialPort.GetPortNames().ToList();
         }
 
-        public bool ConfigurePort(string portName, int rate, string charFormat, string terminator, FlowControl flowControl, TransmissionType transmissionType)
+        public bool ConfigurePort(string portName, int rate, string charFormat, string terminator, FlowControl flowControl)
         {
             _serialPort = new SerialPort();
             //no option to do that
@@ -69,7 +67,6 @@ namespace RS232
            else if (message.StartsWith("PONG") && sw.IsRunning)
            {
                 sw.Stop();
-                TransactionMode = false;
                 return $"PONG {sw.Elapsed.TotalMilliseconds}ms";
            }
            return message;

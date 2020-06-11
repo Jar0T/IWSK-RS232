@@ -40,8 +40,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.terminatorTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.transmissionTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.pingButton = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -155,23 +153,6 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Własny terminator:";
             // 
-            // transmissionTypeComboBox
-            // 
-            this.transmissionTypeComboBox.FormattingEnabled = true;
-            this.transmissionTypeComboBox.Location = new System.Drawing.Point(111, 251);
-            this.transmissionTypeComboBox.Name = "transmissionTypeComboBox";
-            this.transmissionTypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.transmissionTypeComboBox.TabIndex = 13;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 254);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Tryb transmisji:";
-            // 
             // startButton
             // 
             this.startButton.Location = new System.Drawing.Point(34, 348);
@@ -255,8 +236,6 @@
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.pingButton);
             this.Controls.Add(this.startButton);
-            this.Controls.Add(this.transmissionTypeComboBox);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.terminatorTextBox);
             this.Controls.Add(this.terminatorComboBox);
@@ -291,8 +270,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox terminatorTextBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox transmissionTypeComboBox;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button pingButton;
         private System.Windows.Forms.RichTextBox richTextBox1;

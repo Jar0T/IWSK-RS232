@@ -4,7 +4,6 @@ namespace RS232
 {
     public static class Enums
     {
-        public enum TransmissionType { ASCII, HEX };
 
         public enum Terminator { CR, LF, CRLF, BRAK, CUSTOM };
 

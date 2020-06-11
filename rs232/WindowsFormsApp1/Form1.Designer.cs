@@ -50,6 +50,7 @@
             this.timeoutComboBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.stopButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -250,11 +251,22 @@
             this.stopButton.UseVisualStyleBackColor = true;
             this.stopButton.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(145, 391);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(75, 23);
+            this.clearButton.TabIndex = 23;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.timeoutComboBox);
             this.Controls.Add(this.label8);
@@ -309,6 +321,7 @@
         private System.Windows.Forms.ComboBox timeoutComboBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button stopButton;
+        private System.Windows.Forms.Button clearButton;
     }
 }
 

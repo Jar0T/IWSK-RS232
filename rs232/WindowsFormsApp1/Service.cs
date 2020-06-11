@@ -5,12 +5,13 @@ using static RS232.Enums;
 using System.Diagnostics;
 using System;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace RS232
 {
     public class Service
     {
-        private readonly SerialPort _serialPort = new SerialPort();
+        private SerialPort _serialPort;
         private Stopwatch sw = new Stopwatch();
         public bool TransactionMode { get; set; } = false;
 
@@ -19,8 +20,9 @@ namespace RS232
             return SerialPort.GetPortNames().ToList();
         }
 
-        public bool ConfigurePort(string portName, int rate, string charFormat, Terminator terminator, FlowControl flowControl, TransmissionType transmissionType, double timeout)
+        public bool ConfigurePort(string portName, int rate, string charFormat, Terminator terminator, FlowControl flowControl, TransmissionType transmissionType, int timeout)
         {
+            _serialPort = new SerialPort();
             //no option to do that
             if (flowControl.Equals(FlowControl.RTS_CTS))
             {
@@ -33,8 +35,8 @@ namespace RS232
             _serialPort.PortName = portName;
             _serialPort.Handshake = (Handshake)flowControl;
             _serialPort.Parity = GetParityFromCharFormat(charFormat);
-            _serialPort.ReadTimeout = (int)(timeout * 100);
-            _serialPort.WriteTimeout = (int)(timeout * 100);
+            _serialPort.ReadTimeout = timeout;
+            _serialPort.WriteTimeout = timeout;
             _serialPort.NewLine = GetStringFromTerminator(terminator);
             try
             {
@@ -50,7 +52,7 @@ namespace RS232
 
         public void CloseConnection()
         {
-            _serialPort.Close();
+            _serialPort?.Close();
         }
 
         public void SendMessage(string message)
@@ -61,43 +63,28 @@ namespace RS232
             }
         }
 
-        public string ReceiveMessage()
+        public string processMessage(string message)
         {
-            if (_serialPort.IsOpen)
-            {
-                try
-                {
-                    string message = _serialPort.ReadLine();
+           if (message.StartsWith("PING"))
+           {
+                SendMessage("PONG");
+           }
+           else if (message.StartsWith("PONG") && sw.IsRunning)
+           {
+                sw.Stop();
+                TransactionMode = false;
+                return $"PONG {sw.Elapsed.TotalMilliseconds}ms";
+           }
+           return message;
+        }
 
-                    if (message.Equals("PING"))
-                    {
-                        SendMessage("PONG");
-                        return null;
-                    }
-                    else if (message.Equals("PONG"))
-                    {
-                        sw.Stop();
-                        return "PING {sw.Elapsed.TotalMilliseconds}ms";
-                    }
-
-                    return message;
-                }
-                catch (TimeoutException)
-                {
-                    if (TransactionMode)
-                    {
-                        MessageBox.Show("Timeout!");
-                        TransactionMode = false;
-                    }
-                }
-                catch { }
-            }
-            return null;
+        public void setDataReceivedHandler(SerialDataReceivedEventHandler serialDataReceivedEventHandler)
+        {
+            _serialPort.DataReceived += serialDataReceivedEventHandler;
         }
 
         public void SendPing()
         {
-            TransactionMode = true;
             sw.Restart();
             SendMessage("PING");
         }

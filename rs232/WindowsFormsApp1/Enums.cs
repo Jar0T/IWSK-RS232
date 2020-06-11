@@ -21,7 +21,7 @@ namespace RS232
                 case Terminator.BRAK:
                 case Terminator.CUSTOM:
                 default:
-                    return "";
+                    return " ";
             }
         }
 

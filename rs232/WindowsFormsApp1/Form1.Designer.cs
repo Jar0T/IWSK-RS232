@@ -47,8 +47,6 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
-            this.timeoutComboBox = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.stopButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -143,6 +141,7 @@
             // 
             this.terminatorTextBox.Enabled = false;
             this.terminatorTextBox.Location = new System.Drawing.Point(111, 211);
+            this.terminatorTextBox.MaxLength = 2;
             this.terminatorTextBox.Name = "terminatorTextBox";
             this.terminatorTextBox.Size = new System.Drawing.Size(121, 20);
             this.terminatorTextBox.TabIndex = 10;
@@ -223,23 +222,6 @@
             this.sendButton.UseVisualStyleBackColor = true;
             this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
-            // timeoutComboBox
-            // 
-            this.timeoutComboBox.FormattingEnabled = true;
-            this.timeoutComboBox.Location = new System.Drawing.Point(111, 288);
-            this.timeoutComboBox.Name = "timeoutComboBox";
-            this.timeoutComboBox.Size = new System.Drawing.Size(121, 21);
-            this.timeoutComboBox.TabIndex = 21;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 291);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 13);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "Timeout:";
-            // 
             // stopButton
             // 
             this.stopButton.Enabled = false;
@@ -268,8 +250,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.stopButton);
-            this.Controls.Add(this.timeoutComboBox);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.richTextBox1);
@@ -318,8 +298,6 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox messageTextBox;
         private System.Windows.Forms.Button sendButton;
-        private System.Windows.Forms.ComboBox timeoutComboBox;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button clearButton;
     }

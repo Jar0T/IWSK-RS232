@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
 using System.Windows.Forms;
 using static RS232.Enums;
 
@@ -27,29 +26,25 @@ namespace WindowsFormsApp1
             flowControlComboBox.DataSource = Enum.GetNames(typeof(FlowControl));
             transmissionTypeComboBox.DataSource = Enum.GetNames(typeof(TransmissionType));
             portComboBox.DataSource = service.GetPortNames();
-            timeoutComboBox.DataSource = Enumerable.Range(1, 500).ToList();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             int rate = int.Parse(rateComboBox.Text);
             string charFormat = charComboBox.Text;
-            Terminator terminator = (Terminator)Enum.Parse(typeof(Terminator), terminatorComboBox.Text);
+            string termStr = GetCurrentTerminatorAsString();
             FlowControl flowControl = (FlowControl)Enum.Parse(typeof(FlowControl), flowControlComboBox.Text);
             TransmissionType transmissionType = (TransmissionType)Enum.Parse(typeof(TransmissionType), transmissionTypeComboBox.Text);
             string portName = portComboBox.Text;
-            int timeout = int.Parse(timeoutComboBox.Text);
 
-            bool opened = service.ConfigurePort(portName, rate, charFormat, terminator, flowControl, transmissionType, timeout);
+            bool opened = service.ConfigurePort(portName, rate, charFormat, termStr, flowControl, transmissionType);
             if (!opened)
             {
-                richTextBox1.AppendText(Environment.NewLine);
                 richTextBox1.AppendText("Konfiguracja portu nie przebiegła pomyślnie.");
                 richTextBox1.AppendText("Proszę sprawdzić ustawienia lub uruchomić program ponownie.");
                 richTextBox1.AppendText(Environment.NewLine);
                 return;
             }
-            richTextBox1.AppendText(Environment.NewLine);
             richTextBox1.AppendText("Konfiguracja portu przebiegła pomyślnie.");
             richTextBox1.AppendText("Można rozpocząć komunikację.");
             richTextBox1.AppendText(Environment.NewLine);
@@ -59,16 +54,33 @@ namespace WindowsFormsApp1
             service.setDataReceivedHandler(new SerialDataReceivedEventHandler(DataReceivedHandler));
         }
 
+        private string GetCurrentTerminatorAsString()
+        {
+            string termStr;
+            Terminator terminator = ((Terminator)Enum.Parse(typeof(Terminator), terminatorComboBox.Text));
+            if (!terminator.Equals(Terminator.CUSTOM))
+            {
+                termStr = GetStringFromTerminator(terminator);
+            }
+            else
+            {
+                termStr = terminatorTextBox.Text;
+            }
+            return termStr;
+        }
+
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            string message = sp.ReadExisting().Replace("\n", "").Replace("\r", "");
+            string message = sp.ReadExisting();
             if (!string.IsNullOrEmpty(message))
             {
-                message = service.processMessage(message);
                 //idk what is does but fixes thread exception
                 Invoke((MethodInvoker)delegate ()
                 {
+                    string terminator = GetCurrentTerminatorAsString();
+                    message = message.Substring(0, message.Length - terminator.Length);
+                    message = service.processMessage(message);
                     string time = DateTime.Now.ToString("HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo);
                     richTextBox1.AppendText(time + " Odebrano: " + message);
                     richTextBox1.AppendText(Environment.NewLine);
@@ -99,7 +111,6 @@ namespace WindowsFormsApp1
             flowControlComboBox.Enabled = false;
             transmissionTypeComboBox.Enabled = false;
             portComboBox.Enabled = false;
-            timeoutComboBox.Enabled = false;
             stopButton.Enabled = true;
             pingButton.Enabled = true;
         }
@@ -113,7 +124,6 @@ namespace WindowsFormsApp1
             flowControlComboBox.Enabled = true;
             transmissionTypeComboBox.Enabled = true;
             portComboBox.Enabled = true;
-            timeoutComboBox.Enabled = true;
             stopButton.Enabled = false;
             pingButton.Enabled = false;
         }

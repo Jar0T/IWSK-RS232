@@ -3,9 +3,6 @@ using System.Linq;
 using System.IO.Ports;
 using static RS232.Enums;
 using System.Diagnostics;
-using System;
-using System.Windows.Forms;
-using System.Threading;
 
 namespace RS232
 {
@@ -15,12 +12,13 @@ namespace RS232
         private Stopwatch sw = new Stopwatch();
         public bool TransactionMode { get; set; } = false;
 
+
         public List<string> GetPortNames()
         {
             return SerialPort.GetPortNames().ToList();
         }
 
-        public bool ConfigurePort(string portName, int rate, string charFormat, Terminator terminator, FlowControl flowControl, TransmissionType transmissionType, int timeout)
+        public bool ConfigurePort(string portName, int rate, string charFormat, string terminator, FlowControl flowControl, TransmissionType transmissionType)
         {
             _serialPort = new SerialPort();
             //no option to do that
@@ -35,9 +33,8 @@ namespace RS232
             _serialPort.PortName = portName;
             _serialPort.Handshake = (Handshake)flowControl;
             _serialPort.Parity = GetParityFromCharFormat(charFormat);
-            _serialPort.ReadTimeout = timeout;
-            _serialPort.WriteTimeout = timeout;
-            _serialPort.NewLine = GetStringFromTerminator(terminator);
+
+            _serialPort.NewLine = terminator;
             try
             {
                 _serialPort.Open();
@@ -85,8 +82,8 @@ namespace RS232
 
         public void SendPing()
         {
-            sw.Restart();
             SendMessage("PING");
+            sw.Restart();
         }
 
     }

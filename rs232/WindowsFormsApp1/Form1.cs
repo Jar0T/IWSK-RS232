@@ -35,6 +35,12 @@ namespace WindowsFormsApp1
             FlowControl flowControl = (FlowControl)Enum.Parse(typeof(FlowControl), flowControlComboBox.Text);
             string portName = portComboBox.Text;
 
+            if (string.IsNullOrEmpty(portName))
+            {
+                MessageBox.Show("Proszę wybrać port.");
+                return;
+            }
+
             bool opened = service.ConfigurePort(portName, rate, charFormat, termStr, flowControl);
             if (!opened)
             {

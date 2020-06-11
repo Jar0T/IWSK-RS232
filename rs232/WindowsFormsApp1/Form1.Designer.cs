@@ -42,9 +42,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.transmissionTypeComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.pingLabel = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.messageTextBox = new System.Windows.Forms.TextBox();
+            this.sendButton = new System.Windows.Forms.Button();
+            this.timeoutComboBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -167,15 +172,15 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Tryb transmisji:";
             // 
-            // button1
+            // startButton
             // 
-            this.button1.Location = new System.Drawing.Point(34, 348);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.startButton.Location = new System.Drawing.Point(34, 348);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(75, 23);
+            this.startButton.TabIndex = 14;
+            this.startButton.Text = "Start";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -195,14 +200,64 @@
             this.pingLabel.TabIndex = 16;
             this.pingLabel.Text = "label8";
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(270, 10);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(518, 390);
+            this.richTextBox1.TabIndex = 17;
+            this.richTextBox1.Text = "";
+            // 
+            // messageTextBox
+            // 
+            this.messageTextBox.Enabled = false;
+            this.messageTextBox.Location = new System.Drawing.Point(351, 418);
+            this.messageTextBox.MaxLength = 128;
+            this.messageTextBox.Name = "messageTextBox";
+            this.messageTextBox.Size = new System.Drawing.Size(437, 20);
+            this.messageTextBox.TabIndex = 18;
+            // 
+            // sendButton
+            // 
+            this.sendButton.Enabled = false;
+            this.sendButton.Location = new System.Drawing.Point(270, 416);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(75, 23);
+            this.sendButton.TabIndex = 19;
+            this.sendButton.Text = "Wyślij";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            // 
+            // timeoutComboBox
+            // 
+            this.timeoutComboBox.FormattingEnabled = true;
+            this.timeoutComboBox.Location = new System.Drawing.Point(111, 288);
+            this.timeoutComboBox.Name = "timeoutComboBox";
+            this.timeoutComboBox.Size = new System.Drawing.Size(121, 21);
+            this.timeoutComboBox.TabIndex = 21;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 291);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Timeout:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.timeoutComboBox);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.sendButton);
+            this.Controls.Add(this.messageTextBox);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.pingLabel);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.transmissionTypeComboBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -241,9 +296,14 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox transmissionTypeComboBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label pingLabel;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox messageTextBox;
+        private System.Windows.Forms.Button sendButton;
+        private System.Windows.Forms.ComboBox timeoutComboBox;
+        private System.Windows.Forms.Label label8;
     }
 }
 

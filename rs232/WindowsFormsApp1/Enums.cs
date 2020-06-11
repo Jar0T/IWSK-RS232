@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,22 @@ namespace RS232
             }
         }
 
-        public enum FlowControl { XON_XOFF = 1, RTS_CTS = 2, DTR_DSR = -1, BRAK = 0 };
+        public static Parity GetParityFromCharFormat(string charFormat)
+        {
+            char par = charFormat[1];
+            switch (par)
+            {
+                case 'O':
+                    return Parity.Odd;
+                case 'E':
+                    return Parity.Even;
+                case 'N':
+                default:
+                    return Parity.None;
+            }
+        }
+
+        public enum FlowControl { BRAK, XON_XOFF, RTS_CTS, DTR_DSR };
 
         public enum Signal { OB, DA, DTR, DSR, RTS, CTS, CD, RI };
 
